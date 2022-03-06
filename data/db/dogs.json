@@ -1,0 +1,25 @@
+[{
+  "_id": {
+    "$oid": "6224fa468c04871cb9bdf549"
+  },
+  "name": "Charlie",
+  "age": 3,
+  "breed": "corgi",
+  "isAgressive": true
+},{
+  "_id": {
+    "$oid": "6224fbc88b36b2678c4c6562"
+  },
+  "name": "Wyatt",
+  "breed": "Golden",
+  "age": 14,
+  "isAgressive": false
+},{
+  "_id": {
+    "$oid": "6224fbc88b36b2678c4c6563"
+  },
+  "name": "Tonya",
+  "breed": "Chihuahua",
+  "age": 17,
+  "isAgressive": false
+}]

@@ -1,0 +1,9 @@
+[{
+  "_id": {
+    "$oid": "6224fc388b36b2678c4c6564"
+  },
+  "name": "Blue Steele",
+  "age": 6,
+  "dogFriendly": false,
+  "breed": "Scottish fold"
+}]
