@@ -23,3 +23,16 @@ db.dogs.findOne({isAgressive: false})
 // display only first dog, isAgressive = false
 
 
+db.dogs.updateOne({name: 'Charlie'}, {$set: {age: 4, breed: 'Lab'}})
+
+// set new value of existing key in existing single object
+
+
+db.dogs.updateOne({name: 'Wyatt'}, {$set: {color: 'Chocolate'}})
+
+// add new value-key pair to existing single object 
+
+
+db.dogs.updateMany({isAgressive: false}, {$set: {isAvailable: false}})
+
+// add new value-key pair to existing OBJECTS (2)
