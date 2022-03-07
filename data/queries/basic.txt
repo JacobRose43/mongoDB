@@ -2,37 +2,121 @@ db.dogs.insertOne({name: "Charlie", age: 3, breed: "corgi", isAgressive: true})
 
 // if collection "dogs", doesn't exist, it is created automatically 
 
+-------------------------------------------------------------------------------------------------
 
 db.dogs.find()
 
 // display "dogs" collection data
 
+-------------------------------------------------------------------------------------------------
 
 db.dogs.insert([{name: "Wyatt", breed: "Golden", age: 14, isAgressive: false}, {name: "Tonya", breed: "Chihuahua", age: 17, isAgressive: false}])
 
 // mostly common to use -> .insert();
 
+-------------------------------------------------------------------------------------------------
 
 db.dogs.find({isAgressive: false})
 
 // display every dogs, isAgressive = false
 
+-------------------------------------------------------------------------------------------------
 
 db.dogs.findOne({isAgressive: false})
 
 // display only first dog, isAgressive = false
 
+-------------------------------------------------------------------------------------------------
 
 db.dogs.updateOne({name: 'Charlie'}, {$set: {age: 4, breed: 'Lab'}})
 
 // set new value of existing key in existing single object
 
+-------------------------------------------------------------------------------------------------
 
 db.dogs.updateOne({name: 'Wyatt'}, {$set: {color: 'Chocolate'}})
 
 // add new value-key pair to existing single object 
 
+-------------------------------------------------------------------------------------------------
 
 db.dogs.updateMany({isAgressive: false}, {$set: {isAvailable: false}})
 
 // add new value-key pair to existing OBJECTS (2)
+
+-------------------------------------------------------------------------------------------------
+
+db.cats.updateOne({age: 6}, {$set: {age: 7}, $currentDate: {lastChanged: true}})
+
+// $currentDate add variable (example: lastChanged) 
+// with date when something was changed
+
+-------------------------------------------------------------------------------------------------
+
+db.cats.deleteOne({name: 'Blue Steele'})
+
+// delete first (ONLY ONE) object with name = Blue Steele
+
+-------------------------------------------------------------------------------------------------
+
+db.dogs.deleteMany({isAgressive: true})
+
+// delete every dogs with isAgressive = true
+
+-------------------------------------------------------------------------------------------------
+
+db.dogs.deleteMany({})
+
+// delete everything
+
+-------------------------------------------------------------------------------------------------
+
+db.dogs.find({'personality.childFriendly': true, 'personality.catFriendly': true})
+
+// way to display objects if logic value of nested object is true
+
+-------------------------------------------------------------------------------------------------
+
+db.dogs.find({age: {$gt:8}})
+// display objects with age > 8
+
+db.dogs.find({breed: {$in: ['Mutt', 'Corgi']}})
+// display objects with breed = 'Mutt' and 'Corgi'
+
+db.dogs.find({$or: [{'personality.catFriendly': true}, {age: {$lte: 2}}]})
+// display objects with catFriendly = true or age <= 2
+
+// more operators:
+
+in
+nin
+
+gt
+gte
+lt
+lte
+eq
+ne
+
+and
+not
+nor
+or
+
+exists
+type
+
+-------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
