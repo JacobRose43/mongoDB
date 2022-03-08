@@ -2,11 +2,16 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-main().catch((err) => console.log(err));
+// async function main() {
+// 	try {
+// 		return await mongoose.connect('mongodb://localhost:27017/movieApp');
+// 	} catch (error) {
+// 		console.log('CAUGHT AN ERROR!');
+// 		console.log(`error is: ${error}`);
+// 	}
+// }
 
-async function main() {
-	await mongoose.connect('mongodb://localhost:27017/movieApp');
-}
+mongoose.connect('mongodb://localhost:27017/movieApp');
 
 const movieSchema = new Schema({
 	title: String,
@@ -17,11 +22,27 @@ const movieSchema = new Schema({
 
 const Movie = mongoose.model('Movie', movieSchema);
 
-let IronMan = new Movie({
-	title: 'Iron Man',
-	director: 'Jon Favreau',
-	category: ['Action', 'Adventure', 'Sci-Fi'],
-	releaseDate: 2008
-});
+// const IronMan = new Movie({
+// 	title: 'Iron Man',
+// 	director: 'Jon Favreau',
+// 	category: ['Action', 'Adventure', 'Sci-Fi'],
+// 	releaseDate: new Date(2008, 04, 30)
+// });
+
+// const Avengers = new Movie({
+// 	title: 'The Avengers',
+// 	director: 'Joss Whedon',
+// 	category: ['Action', 'Adventure', 'Sci-Fi'],
+// 	releaseDate: new Date(2012, 05, 11)
+// });
+
+// Avengers.save()
+// 	.then(() => {
+// 		console.log('save done');
+// 	})
+// 	.catch((error) => {
+// 		console.log('we have a problem!');
+// 		console.log(error);
+// 	});
 
 // node -> .load index.js -> object
