@@ -82,3 +82,8 @@ const Avengers = new Movie({
 // 	});
 
 // node -> .load index.js -> object
+
+// FIND MOVIE
+
+// Movie.findById(<id>).then((data) => console.log(data));
+

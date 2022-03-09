@@ -108,8 +108,26 @@ type
 
 -------------------------------------------------------------------------------------------------
 
+More examples:
+
+db.movies.find({title: {$in: ['Amadeus', 'Stand By Me']}})
+
+// returns movies that containt in the title : ... ... 
+// also we can update them
+
+db.movies.updateMany({title: {$in: ['Amadeus', 'Stand By Me']}}, {score: 10})
+
+// now Amadeus and Stand By Me have score = 10
 
 
+// We have also
+.findAndModify
+or
+
+Movie.findOneAndUpdate({title: 'The Iron Giant'}, {score: 8}, {new: true})
+// new:true if we want in callback new version, without it, .then => will return old version
+
+//  more: https://mongoosejs.com/docs/api/model.html
 
 
 
