@@ -20,22 +20,14 @@ const productSchema = new Schema({
 	},
 	price: {
 		type: Number,
-		min: 0
+		min: [0, 'Price should be above 0.00$.']
 	},
 	onStock: {
 		type: Boolean,
 		default: true,
 		required: true
 	},
-	categories: [String]
-});
-
-const Product = mongoose.model('Product', productSchema);
-
-const bike = new Product({
-	name: 'Mountain Bike',
-	price: 599,
-	categories: ['Fast', 'Has wheels', 'Like Uber'],
+	categories: [String],
 	qty: {
 		onPage: {
 			type: Number,
@@ -45,15 +37,57 @@ const bike = new Product({
 			type: Number,
 			default: 0
 		}
+	},
+	size: {
+		type: String,
+		enum: ['S', 'M', 'L', 'XL', 'XXL']
 	}
 });
 
-bike.save()
+// INSTANCE METHODS
+
+productSchema.methods.addCategory = function (newCategory) {
+	this.categories.push(newCategory);
+	return this.save;
+};
+
+productSchema.methods.toggleOnStock = function () {
+	this.onStock = !this.onStock;
+	return this.save(); // return coz .save() is asynchronously
+};
+
+productSchema.methods.greet = function () {
+	console.log('Greeting!');
+	console.log(`We have on stock - ${this.name}!`);
+};
+
+const Product = mongoose.model('Product', productSchema);
+
+const findProduct = async () => {
+	const foundProduct = await Product.findOne({ name: 'mountain bike' });
+	console.log(foundProduct);
+	await foundProduct.toggleOnStock(); // await coz .save() from toggleOnStock() is asynchronously
+	console.log(foundProduct);
+	await foundProduct.addCategory('Outdoors');
+	console.log(foundProduct);
+};
+
+findProduct();
+
+const bike = new Product({
+	name: 'Mountain Bike',
+	price: 599,
+	categories: ['Fast', 'Has wheels', 'Like Uber'],
+	qty: { onPage: 9, inStore: 3 },
+	size: 'M'
+});
+
+Product.findOneAndUpdate({ name: 'mountain bike' }, { $set: { price: 2 } }, { new: true, runValidators: true })
 	.then((data) => {
 		console.log('Done!');
 		console.log(data);
 	})
 	.catch((error) => {
 		console.log('We have a problem!');
-		console.log(error.errors.name.properties.message);
+		console.log(error.message); // our custom message!!!
 	});
