@@ -41,8 +41,18 @@ const productSchema = new Schema({
 	size: {
 		type: String,
 		enum: ['S', 'M', 'L', 'XL', 'XXL']
+	},
+	onSale: {
+		type: Boolean,
+		default: false
 	}
 });
+
+// STATIC METHODS
+
+productSchema.statics.fireSale = function () {
+	return this.updateMany({}, { onSale: true, price: 1 });
+};
 
 // INSTANCE METHODS
 
@@ -72,22 +82,27 @@ const findProduct = async () => {
 	console.log(foundProduct);
 };
 
-findProduct();
+Product.fireSale().then((result) => console.log(result));
 
 const bike = new Product({
 	name: 'Mountain Bike',
 	price: 599,
 	categories: ['Fast', 'Has wheels', 'Like Uber'],
 	qty: { onPage: 9, inStore: 3 },
-	size: 'M'
+	size: 'M',
+	onSale: false
 });
 
-Product.findOneAndUpdate({ name: 'mountain bike' }, { $set: { price: 2 } }, { new: true, runValidators: true })
-	.then((data) => {
-		console.log('Done!');
-		console.log(data);
-	})
-	.catch((error) => {
-		console.log('We have a problem!');
-		console.log(error.message); // our custom message!!!
-	});
+// TWO OPTIONS
+// Product.insertMany(bike);
+// bike.save()
+
+// Product.findOneAndUpdate({ name: 'mountain bike' }, { $set: { price: 2 } }, { new: true, runValidators: true })
+// 	.then((data) => {
+// 		console.log('Done!');
+// 		console.log(data);
+// 	})
+// 	.catch((error) => {
+// 		console.log('We have a problem!');
+// 		console.log(error.message); // our custom message!!!
+// 	});
