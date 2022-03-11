@@ -48,6 +48,22 @@ const productSchema = new Schema({
 	}
 });
 
+// middleware
+
+productSchema.pre('save', async function () {
+	console.log('about to save!');
+});
+
+productSchema.post('save', async function () {
+	console.log('just saved!');
+});
+
+// VIRTUALS
+
+productSchema.virtual('Product').get(function () {
+	return `${this.name} - ${this.price}, actually on stock ${this.onStock}!`;
+});
+
 // STATIC METHODS
 
 productSchema.statics.fireSale = function () {
@@ -82,7 +98,7 @@ const findProduct = async () => {
 	console.log(foundProduct);
 };
 
-Product.fireSale().then((result) => console.log(result));
+// Product.fireSale().then((result) => console.log(result));
 
 const bike = new Product({
 	name: 'Mountain Bike',
